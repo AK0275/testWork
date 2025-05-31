@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+</head>
+<body>
+    <%- include("partials/_navbar.ejs") %>
+    <h1>Welcome</h1>
+
+    <% if (user) { %>
+        <p>Logged in as: <%= user.username %></p>
+        <a href="/employees">View Employees</a>
+        <a href="/auth/sign-out">Sign Out</a>
+    <% } else { %>
+        <a href="/auth/sign-up">Sign Up</a>
+        <a href="/auth/sign-in">Sign In</a>
+    <% } %>
+</body>
+</html>

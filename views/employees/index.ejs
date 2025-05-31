@@ -1,0 +1,14 @@
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+<h1>Here's all the employees</h1>
+<ul>
+    <% employees.forEach((employee) => { %>
+        <li>
+        A employee in <%= employee.name %> DI:<%= employee.is %> 
+        <a href="/employees/<%= employee._id %>">View more details</a>
+        </li>
+    <% }) %>
+</ul>
+<a href="/employees/new">Add a new Employee</a>
+
+</body>

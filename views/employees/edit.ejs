@@ -1,0 +1,31 @@
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+
+    <h1>Edit Employee information</h1>
+
+        <form action="/employees/<%= employee._id %>?_method=PUT" method="POST">
+        <label for="name">Name:</label>
+        <input
+        type="text"
+        name="name"
+        id="employee-name"
+        value="<%= employee.name %>"
+        />
+        <br>
+        
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" value="<%= employee.age %>" />
+        <br>
+        
+        <label for="id">ID:</label>
+        <input
+        type="number"
+        name="id"
+        id="id"
+        value="<%= employee.id %>"
+        min="0"
+        />
+        <br>
+        <button type="submit">Edit Employee</button>
+    </form>
+    </body>
