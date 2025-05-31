@@ -1,15 +1,15 @@
 <body>
     <%- include('../partials/_navbar.ejs') %>
-<h1>Here's all the employees</h1>
-<a href="/employees/new">Add a new Employee</a>
-<ul>
-    <% employees.forEach((employee) => { %>
-        <li>
-        Employee: <%= employee.name %> DI:<%= employee.id %> 
-        <a href="/employees/<%= employee._id %>">View more details</a>
-        </li>
-    <% }) %>
-</ul>
 
+    <h1>Here's all the employees</h1>
+    <a href="/employees/new">Add a new Employee</a>
 
+    <ul>
+        <% employees.forEach((employee) => { %>
+            <li>
+                <a href="/employees/<%= employee._id %>/records">Employee: <%= employee.name %></a>
+                ID: <%= employee.id %>
+            </li>
+        <% }) %>
+    </ul>
 </body>

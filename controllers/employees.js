@@ -12,8 +12,12 @@ router.get("/new", (req, res) => {
     res.render("employees/new.ejs");
 });
 
-// Handle New Employee Creation
+// Handle New Employee Creation (Includes Validation)
 router.post("/", async (req, res) => {
+    if (!req.body.age || req.body.age < 18) {
+        return res.send("Error: Employee must be at least 18 years old.");
+    }
+
     req.body.owner = req.session.user._id;
     await Employee.create(req.body);
     res.redirect("/employees");
@@ -26,7 +30,7 @@ router.get("/:employeeId", async (req, res) => {
     res.render("employees/show.ejs", { employee });
 });
 
-// Edit Employee Form (Newly Added)
+// Edit Employee Form
 router.get("/:employeeId/edit", async (req, res) => {
     try {
         const employee = await Employee.findById(req.params.employeeId);
@@ -40,9 +44,13 @@ router.get("/:employeeId/edit", async (req, res) => {
     }
 });
 
-// Handle Employee Update (Newly Added)
+// Handle Employee Update
 router.put("/:employeeId", async (req, res) => {
     try {
+        if (!req.body.age || req.body.age < 18) {
+            return res.send("Error: Employee age must be at least 18.");
+        }
+
         const updatedEmployee = await Employee.findByIdAndUpdate(req.params.employeeId, req.body, { new: true });
         if (!updatedEmployee) {
             return res.send("Employee not found.");
