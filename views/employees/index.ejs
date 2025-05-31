@@ -1,3 +1,7 @@
+<head>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Employee</title>
+</head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
 
@@ -7,8 +11,8 @@
     <ul>
         <% employees.forEach((employee) => { %>
             <li>
-                <a href="/employees/<%= employee._id %>/records">Employee: <%= employee.name %></a>
-                ID: <%= employee.id %>
+                Employee:<a href="/employees/<%= employee._id %>/records"> <%= employee.name %> ID: <%= employee.id %></a>
+                
             </li>
         <% }) %>
     </ul>
