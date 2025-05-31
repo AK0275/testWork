@@ -54,4 +54,39 @@ router.put("/:employeeId", async (req, res) => {
     }
 });
 
+// Employee Check-In
+router.post("/:employeeId/check-in", async (req, res) => {
+    const employee = await Employee.findById(req.params.employeeId);
+    if (!employee) return res.send("Employee not found.");
+
+    employee.records.push({ checkIn: new Date() });
+    await employee.save();
+    
+    res.redirect(`/employees/${employee._id}/records`);
+});
+
+// Employee Check-Out
+router.post("/:employeeId/check-out", async (req, res) => {
+    const employee = await Employee.findById(req.params.employeeId);
+    if (!employee) return res.send("Employee not found.");
+
+    const lastRecord = employee.records[employee.records.length - 1];
+    if (!lastRecord || lastRecord.checkOut) {
+        return res.send("Employee hasn't checked in or has already checked out.");
+    }
+
+    lastRecord.checkOut = new Date();
+    await employee.save();
+    
+    res.redirect(`/employees/${employee._id}/records`);
+});
+
+// Show Employee Records
+router.get("/:employeeId/records", async (req, res) => {
+    const employee = await Employee.findById(req.params.employeeId);
+    if (!employee) return res.send("Employee not found.");
+
+    res.render("employees/records.ejs", { employee });
+});
+
 module.exports = router;

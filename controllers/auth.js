@@ -39,14 +39,28 @@ router.get("/sign-in", (req, res) => {
 router.post("/sign-in", async (req, res) => {
     try {
         const userInDatabase = await User.findOne({ username: req.body.username });
-        if (!userInDatabase) {
-            return res.send("Login failed. Username not found.");
-        }
 
-        const passwordMatch = await bcrypt.compare(req.body.password, userInDatabase.password);
-        if (!passwordMatch) {
-            return res.send("Login failed. Incorrect password.");
-        }
+
+// Debugging Step 1: Check if user exists
+    if (!userInDatabase) {
+        console.log("User not found");
+        return res.send("Login failed. Username not found.");
+    }
+
+    console.log("Stored Hashed Password:", userInDatabase.password);
+    console.log("Entered Password:", req.body.password);
+
+
+
+
+// Debugging Step 2: Compare passwords
+    const passwordMatch = await bcrypt.compare(req.body.password, userInDatabase.password);
+
+    if (!passwordMatch) {
+        console.log("Password does not match");
+        return res.send("Login failed. Incorrect password.");
+    }
+
 
         req.session.user = {
             username: userInDatabase.username,

@@ -1,0 +1,25 @@
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1>Attendance Records for <%= employee.name %></h1>
+
+    <table border="1">
+        <tr>
+            <th>Check-In Time</th>
+            <th>Check-Out Time</th>
+        </tr>
+        <% employee.records.forEach((record) => { %>
+            <tr>
+                <td><%= record.checkIn ? record.checkIn.toLocaleString() : 'Not Checked In' %></td>
+                <td><%= record.checkOut ? record.checkOut.toLocaleString() : 'Not Checked Out' %></td>
+            </tr>
+        <% }) %>
+    </table>
+
+    <form action="/employees/<%= employee._id %>/check-in" method="POST">
+        <button type="submit">Check-In</button>
+    </form>
+
+    <form action="/employees/<%= employee._id %>/check-out" method="POST">
+        <button type="submit">Check-Out</button>
+    </form>
+</body>
