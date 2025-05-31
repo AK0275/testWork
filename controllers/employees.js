@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Employee = require("../models/employee");
 
-// Display Employees
+// Display All Employees
 router.get("/", async (req, res) => {
     const employees = await Employee.find();
     res.render("employees/index.ejs", { employees });
@@ -26,31 +26,31 @@ router.get("/:employeeId", async (req, res) => {
     res.render("employees/show.ejs", { employee });
 });
 
-// Delete Employee
-router.delete("/:employeeId", async (req, res) => {
-    const employee = await Employee.findById(req.params.employeeId);
-    if (employee.owner.equals(req.session.user._id)) {
-        await employee.deleteOne();
-        res.redirect("/employees");
-    } else {
-        res.send("You don't have permission to delete this employee.");
+// Edit Employee Form (Newly Added)
+router.get("/:employeeId/edit", async (req, res) => {
+    try {
+        const employee = await Employee.findById(req.params.employeeId);
+        if (!employee) {
+            return res.send("Employee not found.");
+        }
+        res.render("employees/edit.ejs", { employee });
+    } catch (error) {
+        console.error("Error fetching employee:", error);
+        res.send("An error occurred. Please try again.");
     }
 });
 
-// Edit Employee Form
-router.get("/:employeeId/edit", async (req, res) => {
-    const currentEmployee = await Employee.findById(req.params.employeeId);
-    res.render("employees/edit.ejs", { employee: currentEmployee });
-});
-
-// Handle Employee Update
+// Handle Employee Update (Newly Added)
 router.put("/:employeeId", async (req, res) => {
-    const currentEmployee = await Employee.findById(req.params.employeeId);
-    if (currentEmployee.owner.equals(req.session.user._id)) {
-        await currentEmployee.updateOne(req.body);
-        res.redirect("/employees");
-    } else {
-        res.send("You don't have permission to edit this employee.");
+    try {
+        const updatedEmployee = await Employee.findByIdAndUpdate(req.params.employeeId, req.body, { new: true });
+        if (!updatedEmployee) {
+            return res.send("Employee not found.");
+        }
+        res.redirect(`/employees/${updatedEmployee._id}`);
+    } catch (error) {
+        console.error("Error updating employee:", error);
+        res.send("An error occurred. Please try again.");
     }
 });
 
@@ -61,7 +61,7 @@ router.post("/:employeeId/check-in", async (req, res) => {
 
     employee.records.push({ checkIn: new Date() });
     await employee.save();
-    
+
     res.redirect(`/employees/${employee._id}/records`);
 });
 
@@ -77,7 +77,7 @@ router.post("/:employeeId/check-out", async (req, res) => {
 
     lastRecord.checkOut = new Date();
     await employee.save();
-    
+
     res.redirect(`/employees/${employee._id}/records`);
 });
 

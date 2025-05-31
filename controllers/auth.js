@@ -20,13 +20,17 @@ router.post("/sign-up", async (req, res) => {
         }
 
         // Hash password before storing
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        req.body.password = hashedPassword;
+        const hashedPassword = await bcrypt.hash(req.body.password, 10); // Using async function
 
-        const user = await User.create(req.body);
-        res.redirect("/auth/sign-in");
+        const user = await User.create({
+            username: req.body.username,
+            password: hashedPassword
+        });
+
+        res.send(`Thanks for signing up, ${user.username}`);
     } catch (error) {
-        console.log(error);
+        console.error("Error during sign-up:", error);
+        res.send("An error occurred. Please try again.");
     }
 });
 
@@ -39,40 +43,35 @@ router.get("/sign-in", (req, res) => {
 router.post("/sign-in", async (req, res) => {
     try {
         const userInDatabase = await User.findOne({ username: req.body.username });
+        if (!userInDatabase) {
+            return res.send("Login failed. Username not found.");
+        }
 
+        console.log("Entered Password:", req.body.password);
+        console.log("Stored Hashed Password:", userInDatabase.password);
 
-// Debugging Step 1: Check if user exists
-    if (!userInDatabase) {
-        console.log("User not found");
-        return res.send("Login failed. Username not found.");
-    }
+        // Compare entered password with stored hashed password
+        const passwordMatch = bcrypt.compare(req.body.password, userInDatabase.password);
+        console.log("Password comparison result:", passwordMatch);
 
-    console.log("Stored Hashed Password:", userInDatabase.password);
-    console.log("Entered Password:", req.body.password);
+        if (!passwordMatch) {
+            return res.send("Login failed. Incorrect password.");
+        }
 
-
-
-
-// Debugging Step 2: Compare passwords
-    const passwordMatch = await bcrypt.compare(req.body.password, userInDatabase.password);
-
-    if (!passwordMatch) {
-        console.log("Password does not match");
-        return res.send("Login failed. Incorrect password.");
-    }
-
-
+        // Store user session data
         req.session.user = {
             username: userInDatabase.username,
             _id: userInDatabase._id
         };
 
-        req.session.save(() => {
+        // Ensure session is saved before redirecting
+        req.session.save((err) => {
+            if (err) console.error("Session save error:", err);
             res.redirect("/");
         });
 
     } catch (error) {
-        console.log(error);
+        console.error("Error during login:", error);
         res.send("An error occurred. Please try again.");
     }
 });
@@ -83,5 +82,4 @@ router.get("/sign-out", (req, res) => {
         res.redirect("/");
     });
 });
-
 module.exports = router;
