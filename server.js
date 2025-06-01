@@ -11,6 +11,11 @@ const MongoStore = require("connect-mongo");
 
 const app = express();
 
+// use EJS as the viw engine
+app.set('view engine', 'ejs');
+// static file
+app.use(express.static('public'));
+
 // Port Configuration
 const port = process.env.PORT || 3000;
 

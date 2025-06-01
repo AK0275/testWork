@@ -1,0 +1,23 @@
+<head>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Edit Attendance Record</title>
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    <div class="record-edit">
+
+    <h1>Edit Attendance Record for <%= employee.name %></h1>
+
+    <form action="/employees/<%= employee._id %>/records/<%= recordIndex %>?_method=PUT" method="POST">
+        <label for="checkIn">Check-In:</label>
+        <input type="datetime-local" name="checkIn" id="checkIn" value="<%= record.checkIn ? record.checkIn.toISOString().slice(0,16) : '' %>" />
+        <br>
+
+        <label for="checkOut">Check-Out:</label>
+        <input type="datetime-local" name="checkOut" id="checkOut" value="<%= record.checkOut ? record.checkOut.toISOString().slice(0,16) : '' %>" />
+        <br>
+
+        <button type="submit">Update Record</button>
+    </form>
+</div>
+</body>

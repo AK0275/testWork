@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/auth.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
     <title>Sign Up</title>
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <div class="auth-sign">
+    <div class="form-container">
         <h1>Create a new account!</h1>
-            <div class="input">
+            <div class="form-group">
                 <form action="/auth/sign-up" method="post">
                 <label for="username">Username:</label>
                 <input type="text" name="username" id="username" />
@@ -20,9 +20,9 @@
                 <br>
                 <label for="confirmPassword">Confirm Password:</label>
                 <input type="password" name="confirmPassword" id="confirmPassword" />
-                <br>
-                <button type="submit">Sign up</button>
             </div>
+            <br>
+            <button type="submit">Sign up</button>
         </form>
     </div>
 </body>

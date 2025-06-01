@@ -8,10 +8,11 @@
 </head>
 <body>
     <%- include("partials/_navbar.ejs") %>
+    <div class="home">
     <h1>Welcome</h1>
-     <% if (user) { %>
-    <a href="/employees">View all Employeess</a>
-    <% } %> 
-    <!-- <img src="https://i.ibb.co/svT1qMt3/R-pica-1-pica-Picsart-Background-Remover.png" alt="R-pica-1-pica-Picsart-Background-Remover" border="0"> -->
+    <% if (user) { %>
+    <a href="/employees">View all Employees</a>
+    <% } %>
+</div> 
 </body>
 </html>

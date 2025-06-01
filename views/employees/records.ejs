@@ -1,9 +1,10 @@
 <head>
     <link rel="stylesheet" href="/stylesheets/style.css">
-    <title>Edit Employee</title>
+    <title>Attendance Records</title>
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
+    <div class="records-container">
 
     <h1>Attendance Records for <%= employee.name %></h1>
 
@@ -11,11 +12,21 @@
         <tr>
             <th>Check-In Time</th>
             <th>Check-Out Time</th>
+            <th>Actions</th> <!-- Added Action Buttons -->
         </tr>
-        <% employee.records.forEach((record) => { %>
+        <% employee.records.forEach((record, index) => { %>
             <tr>
                 <td><%= record.checkIn ? record.checkIn.toLocaleString() : 'Not Checked In' %></td>
                 <td><%= record.checkOut ? record.checkOut.toLocaleString() : 'Not Checked Out' %></td>
+                <td>
+                    <!-- Edit Button -->
+                    <a href="/employees/<%= employee._id %>/records/<%= index %>/edit">Edit</a>
+
+                    <!-- Delete Form -->
+                    <form action="/employees/<%= employee._id %>/records/<%= index %>?_method=DELETE" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
         <% }) %>
     </table>
@@ -27,4 +38,5 @@
     <form action="/employees/<%= employee._id %>/check-out" method="POST">
         <button type="submit">Check-Out</button>
     </form>
+</div>
 </body>
