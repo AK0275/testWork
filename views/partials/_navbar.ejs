@@ -1,7 +1,9 @@
-<% if (user) { %>
-    <a href="/employees">View all Employeess</a>
+<div class="navbar">
+    <% if (user) { %>
+    <!-- <a href="/employees">View all Employeess</a> -->
     <a href="/auth/sign-out">Sign Out</a>
     <% } else { %>
     <a href="/auth/sign-up">Sign Up</a>
     <a href="/auth/sign-in">Sign In</a>
     <% } %>
+</div>

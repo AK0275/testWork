@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/public/stylesheets/auth.css">
     <title>Sign In</title>
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
+    <div class="auth-sign" id="sign-in">
     <h1>Sign in</h1>
-    <form action="/auth/sign-in" method="POST">
-    <br>
-    <label for="username">Username:</label>
-    <input type="text" name="username" />
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" name="password" />
-    <br>
-    <button type="submit">Sign in</button>
-    </form>
+        <div class="input">
+            <form action="/auth/sign-in" method="POST">
+            <br>
+            <label for="username">Username:</label>
+            <input type="text" name="username" />
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" name="password" />
+            <br>
+            <button type="submit">Sign in</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

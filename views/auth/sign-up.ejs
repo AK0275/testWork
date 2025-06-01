@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/auth.css">
     <title>Sign Up</title>
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>Create a new account!</h1>
-    <form action="/auth/sign-up" method="post">
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" />
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" />
-    <br>
-    <label for="confirmPassword">Confirm Password:</label>
-    <input type="password" name="confirmPassword" id="confirmPassword" />
-    <br>
-    <button type="submit">Sign up</button>
-    </form>
+    <div class="auth-sign">
+        <h1>Create a new account!</h1>
+            <div class="input">
+                <form action="/auth/sign-up" method="post">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" />
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" />
+                <br>
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" name="confirmPassword" id="confirmPassword" />
+                <br>
+                <button type="submit">Sign up</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

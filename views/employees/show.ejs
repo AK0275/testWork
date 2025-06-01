@@ -4,19 +4,18 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-
-
     <h2>Details</h2>
-    <p>Name: <%= employee.name %></p>
-    <p>Age: <%= employee.age %></p>
-    <p>id: <%= employee.id %></p>
-
-    <a href="/employees/<%= employee._id %>/edit">Edit employee information</a>
-    
-    <form action="/employees/<%= employee._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete this employee</button>
-    </form>
-
+        <div class="details-card">
+            <p>Name: <%= employee.name %></p>
+            <p>Age: <%= employee.age %></p>
+            <p>id: <%= employee.id %></p>
+            <br>
+            <a href="/employees/<%= employee._id %>/edit">Edit employee information</a>
+            
+            <form action="/employees/<%= employee._id %>?_method=DELETE" method="POST">
+            <button type="submit">Delete this employee</button>
+            </form>
+        </div>
 
 </body>
 

@@ -3,17 +3,17 @@
     <title>Employee</title>
 </head>
 <body>
-    <%- include('../partials/_navbar.ejs') %>
-
-    <h1>Here's all the employees</h1>
+<%- include('../partials/_navbar.ejs') %>
+<h1>Here's all the employees</h1>
     <a href="/employees/new">Add a new Employee</a>
-
-    <ul>
-        <% employees.forEach((employee) => { %>
-            <li>
-                Employee:<a href="/employees/<%= employee._id %>/records"> <%= employee.name %> ID: <%= employee.id %></a>
-                
-            </li>
-        <% }) %>
-    </ul>
+        <div class="employee-list">
+            <ul>
+                <% employees.forEach((employee) => { %>
+                    <li>
+                        Employee:<a href="/employees/<%= employee._id %>/records"> <%= employee.name %> ID: <%= employee.id %></a>
+                        <a href="/employees/<%= employee._id %>">View more details</a>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
 </body>

@@ -1,0 +1,16 @@
+* {
+    margin: 0px;
+    padding: 0px
+}
+
+.navbar {
+    background-color: olive;
+    color: white;
+    font-size: 8px;
+}
+
+body {
+    margin: 0px;
+    background-color: bisque;
+}
+

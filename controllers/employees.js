@@ -97,4 +97,19 @@ router.get("/:employeeId/records", async (req, res) => {
     res.render("employees/records.ejs", { employee });
 });
 
+// Delete the Employee
+router.delete("/:employeeId", async (req, res) => {
+    try {
+        const deletedEmployee = await Employee.findByIdAndDelete(req.params.employeeId);
+        if (!deletedEmployee) {
+            return res.send("Employee not found.");
+        }
+        res.redirect("/employees");
+    } catch (error) {
+        console.error("Error deleting employee:", error);
+        res.send("An error occurred. Please try again.");
+    }
+});
+
+
 module.exports = router;
